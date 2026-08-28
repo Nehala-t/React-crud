@@ -84,12 +84,12 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
               </span>
 
               <div className="product-actions">
-                <Link href="#" class="btn btn-primary text-decoration-none view-btn" onClick={() => {
+                <button class="btn btn-primary text-decoration-none view-btn" onClick={() => {
                   console.log("Selected product:", products.id);
                   
                  viewProduct(products.id);
-                }}>VIEW PRODUCT</Link>
-                <Link href="#" class="btn btn-primary text-decoration-none edit-btn"
+                }}>VIEW PRODUCT</button>
+                <Link to="#" class="btn btn-primary text-decoration-none edit-btn"
                  onClick={(e) => {
   e.preventDefault();
 
@@ -247,7 +247,7 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
                 }
 
 
-                <Link href="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
+                <Link to="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
                   console.log("Selected product:", products.id);
                   setSelectedProductId(products.id);
                   setShowDeleteModal(true);
