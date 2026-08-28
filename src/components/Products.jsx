@@ -107,7 +107,93 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
 }}
                 >EDIT</Link>
 
-                {showEditModal && selectedProduct &&(
+               
+
+
+                <Link to="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
+                  console.log("Selected product:", products.id);
+                  setSelectedProductId(products.id);
+                  setShowDeleteModal(true);
+                }}>DELETE</Link>
+               
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+      ))}
+       {/* !-- Button trigger modal  */}
+                {showDeleteModal && (
+                  <div
+                    className="modal fade show d-block delete-modal-overlay"
+                    id="staticBackdrop"
+                    data-bs-backdrop="static"
+                    data-bs-keyboard="false"
+                    tabIndex="-1"
+                    aria-labelledby="staticBackdropLabel"
+                    aria-hidden="true"
+                  >
+                    <div className="modal-dialog delete-modal-dialog">
+                      <div className="modal-content delete-modal-content">
+
+                        <div className="modal-header delete-modal-header">
+                          <div className="delete-icon">
+                            <span>!</span>
+                          </div>
+
+                          <div>
+                            <h5 className="modal-title">Delete Product</h5>
+                            <p className="delete-modal-subtitle">
+                              This action cannot be undone.
+                            </p>
+                          </div>
+                        </div>
+
+                        <div className="modal-body delete-modal-body">
+                          <p>
+                            Are you sure you want to delete this product?
+                          </p>
+                        </div>
+
+                        <div className="modal-footer delete-modal-footer">
+
+                          <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            onClick={() => {
+                              setShowDeleteModal(false);
+                              setSelectedProductId(null);
+                            }}
+                          >
+                            Close
+                          </button>
+
+                          <button
+                            type="button"
+                            className="btn btn-primary"
+                            onClick={() => {
+                              console.log("Deleting ID:", selectedProductId);
+
+                              deleteProduct(selectedProductId);
+
+                              setShowDeleteModal(false);
+                              setSelectedProductId(null);
+                            }}
+                          >
+                            Delete
+                          </button>
+
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* !-- edit button modal  */}
+                 {showEditModal && selectedProduct &&(
                   <div
                     className="modal fade show d-block"
                     tabIndex="-1"
@@ -245,89 +331,8 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
                   </div>
                 )
                 }
-
-
-                <Link to="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
-                  console.log("Selected product:", products.id);
-                  setSelectedProductId(products.id);
-                  setShowDeleteModal(true);
-                }}>DELETE</Link>
-                {/* !-- Button trigger modal  */}
-                {showDeleteModal && (
-                  <div
-                    className="modal fade show d-block delete-modal-overlay"
-                    id="staticBackdrop"
-                    data-bs-backdrop="static"
-                    data-bs-keyboard="false"
-                    tabIndex="-1"
-                    aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true"
-                  >
-                    <div className="modal-dialog delete-modal-dialog">
-                      <div className="modal-content delete-modal-content">
-
-                        <div className="modal-header delete-modal-header">
-                          <div className="delete-icon">
-                            <span>!</span>
-                          </div>
-
-                          <div>
-                            <h5 className="modal-title">Delete Product</h5>
-                            <p className="delete-modal-subtitle">
-                              This action cannot be undone.
-                            </p>
-                          </div>
-                        </div>
-
-                        <div className="modal-body delete-modal-body">
-                          <p>
-                            Are you sure you want to delete this product?
-                          </p>
-                        </div>
-
-                        <div className="modal-footer delete-modal-footer">
-
-                          <button
-                            type="button"
-                            className="btn btn-secondary"
-                            data-bs-dismiss="modal"
-                            onClick={() => {
-                              setShowDeleteModal(false);
-                              setSelectedProductId(null);
-                            }}
-                          >
-                            Close
-                          </button>
-
-                          <button
-                            type="button"
-                            className="btn btn-primary"
-                            onClick={() => {
-                              console.log("Deleting ID:", selectedProductId);
-
-                              deleteProduct(selectedProductId);
-
-                              setShowDeleteModal(false);
-                              setSelectedProductId(null);
-                            }}
-                          >
-                            Delete
-                          </button>
-
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-            </div>
-          </div>
-        </div>
-
-      ))}
     </div>
+    
   )
 }
 
