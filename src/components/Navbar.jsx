@@ -1,38 +1,38 @@
-  import React, { useState } from 'react';
-  import { useAuth } from '../context/auth';
-  import { useNavigate,NavLink} from 'react-router-dom';
+import React, { useState } from 'react';
+import { useAuth } from '../context/auth';
+import { useNavigate, NavLink } from 'react-router-dom';
 
 
-  const Navbar = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-    // const [activeMenu, setActiveMenu] = useState("Home");
-    const { logout, user } = useAuth();
-    const navigate = useNavigate();
+const Navbar = () => {
+  const [menuOpen, setMenuOpen] = useState(false);
+  // const [activeMenu, setActiveMenu] = useState("Home");
+  const { logout, user } = useAuth();
+  const navigate = useNavigate();
 
 
-   
 
-    const handleLogout = (e) =>{
-      e.preventDefault();
-      logout();
-      
 
-    }
-    const handleLogin = (e)=>{
-      e.preventDefault();
-      navigate("/login");
+  const handleLogout = (e) => {
+    e.preventDefault();
+    logout();
 
-    }
 
-    // const handleMenuClick = (menu, path)=>{
-    //   setActiveMenu(menu);
-    //   setMenuOpen(false);
-    //   navigate(path);
+  }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    navigate("/login");
 
-    // }
+  }
 
-    return (
-       <div className="navbar">
+  // const handleMenuClick = (menu, path)=>{
+  //   setActiveMenu(menu);
+  //   setMenuOpen(false);
+  //   navigate(path);
+
+  // }
+
+  return (
+    <div className="navbar">
 
       <div className="image">
         <img src="/images/logo-logomark.png" alt="Logo" />
@@ -81,7 +81,7 @@
           </div>
 
           <div>
-            <button onClick={!user ? handleLogin : handleLogout }>
+            <button onClick={!user ? handleLogin : handleLogout}>
               {!user ? 'LOGIN' : 'LOGOUT'}
             </button>
           </div>
@@ -100,7 +100,7 @@
       </div>
 
     </div>
-    );
-  };
+  );
+};
 
-  export default Navbar;
+export default Navbar;
