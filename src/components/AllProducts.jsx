@@ -139,6 +139,7 @@ axios.put(`https://fakestoreapi.com/products/${id}`, product)
 
   return (
     <div className="products">
+      <ToastContainer />
 
       <h1>All Products</h1>
 
