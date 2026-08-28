@@ -485,6 +485,20 @@ background-color: #111827;
 
 }
 
+.menu-item-1 {
+  text-decoration: none;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.menu-item-1:hover {
+  color: #007bff;
+}
+
 .imagecontainer img{
   width: 70px;
   height: auto;

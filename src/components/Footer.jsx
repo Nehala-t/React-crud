@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
 
 
 const Footer = () => {
@@ -6,9 +8,9 @@ const Footer = () => {
     <div className='footer-container'>
       <div className='imagecontainer'><img src='/images/logo-logomark.png' alt="" /></div>
       <div className='menu-cont'>
-        <div className='menu-item'>Home</div>
-        <div className='menu-item'>About</div>
-        <div className='menu-item'>Contact</div>
+        <Link to="/" className='menu-item-1'>Home</Link>
+        <Link to="/about" className='menu-item-1'>About</Link>
+        <Link to="/contact" className='menu-item-1'>Contact</Link>
       </div>
       <div className='social-meadia'>
         <div><img src="/images/iconoir_facebook.png" alt="" /></div>
