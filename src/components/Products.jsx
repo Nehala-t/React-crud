@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -83,12 +84,12 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
               </span>
 
               <div className="product-actions">
-                <a href="#" class="btn btn-primary text-decoration-none view-btn" onClick={() => {
+                <Link href="#" class="btn btn-primary text-decoration-none view-btn" onClick={() => {
                   console.log("Selected product:", products.id);
                   
                  viewProduct(products.id);
-                }}>VIEW PRODUCT</a>
-                <a href="#" class="btn btn-primary text-decoration-none edit-btn"
+                }}>VIEW PRODUCT</Link>
+                <Link href="#" class="btn btn-primary text-decoration-none edit-btn"
                  onClick={(e) => {
   e.preventDefault();
 
@@ -104,7 +105,7 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
 
   setShowEditModal(true);
 }}
-                >EDIT</a>
+                >EDIT</Link>
 
                 {showEditModal && selectedProduct &&(
                   <div
@@ -246,11 +247,11 @@ const Products = ({ curruntProducts, deleteProduct,editProduct, viewProduct }) =
                 }
 
 
-                <a href="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
+                <Link href="#" class="btn btn-primary text-decoration-none delete-btn" onClick={() => {
                   console.log("Selected product:", products.id);
                   setSelectedProductId(products.id);
                   setShowDeleteModal(true);
-                }}>DELETE</a>
+                }}>DELETE</Link>
                 {/* !-- Button trigger modal  */}
                 {showDeleteModal && (
                   <div

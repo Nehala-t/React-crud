@@ -4,6 +4,7 @@ import axios from "axios";
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
+import { Link } from "react-router-dom";
 
 const AllProducts = () => {
 
@@ -268,12 +269,12 @@ axios.put(`https://fakestoreapi.com/products/${id}`, product)
   <ul class="pagination">
 
     <li class={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-      <a   className="page-link"
+      <Link href=""   className="page-link"
   onClick={() => setCurrentPage(currentPage - 1)}
   disabled={currentPage === 1}
 >
         Previous
-      </a>
+      </Link>
     </li>
 
     {/* Page numbers */}
