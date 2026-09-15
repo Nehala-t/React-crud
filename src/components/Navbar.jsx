@@ -6,7 +6,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   // const [activeMenu, setActiveMenu] = useState("Home");
-  const { logout, user } = useAuth();
+  const { logout, user, authLoading } = useAuth();
   const navigate = useNavigate();
 
 
@@ -22,6 +22,11 @@ const Navbar = () => {
     e.preventDefault();
     navigate("/login");
 
+  }
+
+  // Wait until user information is loaded
+  if (authLoading) {
+    return null;
   }
 
   // const handleMenuClick = (menu, path)=>{
@@ -71,14 +76,42 @@ const Navbar = () => {
           >
             Contact
           </NavLink>
+           
+          {user?.role === "user" ? (
+  <NavLink
+    to="/product"
+    className={({ isActive }) =>
+              `item ${isActive ? 'active-item' : ''}`
+            }
+    onClick={() => setMenuOpen(false)}
+  >
+    Product
+  </NavLink>
+) : (
+  <NavLink
+  className={({ isActive }) =>
+              `item ${isActive ? 'active-item' : ''}`
+            }
+    to="/sellerDashBoard"
+    onClick={() => setMenuOpen(false)}
+  >
+    Seller Dashboard
+  </NavLink>
+)}
 
         </div>
 
         <div className="profile">
 
-          <div>
-            <img src="/images/demo-user.jpg" alt="User" />
+          <div className="cart-icon"
+    onClick={() => navigate("/cart")}>
+            <img src="/images/cart.png" alt="Cart" />
           </div>
+          <div>
+  <button onClick={() => navigate("/signUp")}>
+    SIGN UP
+  </button>
+</div>
 
           <div>
             <button onClick={!user ? handleLogin : handleLogout}>

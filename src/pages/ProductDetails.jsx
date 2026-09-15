@@ -1,82 +1,144 @@
-import React from 'react'
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import api from "../api";
+import { toast, ToastContainer } from "react-toastify";
+import { useAuth } from "../context/auth";
 
 const ProductDetails = () => {
-    const { id } = useParams();
-    const [product, setProduct] = useState(null);
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { user } = useAuth();
 
-    useEffect(()=>{
-        axios.get(`https://fakestoreapi.com/products/${id}`)
-  .then(response => {
-    console.log(response.data);
-    setProduct(response.data)
-    }
-    )
-    .catch((error) => {
-        console.log(error);
+  const [product, setProduct] = useState(null);
+  const [cartQuantity, setCartQuantity] = useState(0);
+
+  // Fetch product details
+  useEffect(() => {
+    api
+      .get(`/ViewProduct?${id}`)
+      .then((response) => {
+        console.log("Product details:", response.data);
+        setProduct(response.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response?.data);
       });
+  }, [id]);
 
+  // Add product to cart
+  const handleAddCart = async () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
 
-    },[id])
+    try {
+      const response = await api.post(
+        "/addCart",
+        {
+          productId: id,
+          quantity: 1,
+          action: "add",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
 
-     if (!product) {
+      console.log("Cart updated:", response.data);
+
+      const updatedCart = response.data.data;
+
+      setCartQuantity(updatedCart.quantity);
+
+      toast.success("Product added to cart successfully!");
+    } catch (error) {
+      console.error(
+        "Add cart error:",
+        error.response?.data || error.message
+      );
+
+      toast.error(
+        error.response?.data?.message || "Failed to add product to cart"
+      );
+    }
+  };
+
+  if (!product) {
     return <h2>Loading...</h2>;
   }
 
-
-
   return (
-  <div className="single-product-page">
+    <div className="single-product-page">
 
-  <div className="single-product-card">
+      <ToastContainer />
 
-    <div className="single-product-image-box">
-      <img
-        src={product.image}
-        alt="Product"
-        className="single-product-image"
-      />
-    </div>
+      <div className="single-product-card">
 
-    <div className="single-product-info">
+        <div className="single-product-image-box">
+          <img
+            src={`http://localhost:5000${product.image}`}
+            alt={product.title}
+            className="single-product-image"
+          />
+        </div>
 
-      <span className="single-product-category">
-        {product.category}
-      </span>
+        <div className="single-product-info">
 
-      <h2>{product.title}</h2>
+          <span className="single-product-category">
+            {product.category}
+          </span>
 
-      <p className="single-product-description">
-        {product.description}
-      </p>
+          <h2>{product.title}</h2>
 
-      {/* <div className="single-product-rating">
-        ⭐⭐⭐⭐⭐ <span>4.8 / 5</span>
-      </div> */}
+          <p className="single-product-description">
+            {product.description}
+          </p>
 
-      <p className="single-product-price">
-        {product.price}
-      </p>
+          <p className="single-product-price">
+            {product.price}
+          </p>
 
-      <div className="single-product-buttons">
-        {/* <button className="single-product-buy">
-          Add to Cart
-        </button> */}
+          <div className="single-product-buttons">
 
-        <a href="/" className="single-product-back">
-          ← Go Back
-        </a>
+            <button
+              type="button"
+              className="single-product-back"
+              onClick={() => navigate("/product")}
+            >
+              ← Go Back
+            </button>
+
+           {user?.role === "user" && (
+  cartQuantity > 0 ? (
+    <button
+      type="button"
+      className="cart-btn"
+      onClick={() => navigate("/cart")}
+    >
+      Go to Cart
+    </button>
+  ) : (
+    <button
+      type="button"
+      className="cart-btn"
+      onClick={handleAddCart}
+    >
+      Add Cart
+    </button>
+  )
+)}
+
+          </div>
+
+        </div>
+
       </div>
 
     </div>
+  );
+};
 
-  </div>
-  
-
-</div>
-  )
-}
-
-export default ProductDetails
+export default ProductDetails;

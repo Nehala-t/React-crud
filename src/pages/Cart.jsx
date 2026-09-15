@@ -1,16 +1,16 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
-import Welcome from '../components/welcome'
+import ViewCart from '../components/ViewCart'
 import Footer from '../components/Footer'
 
-const Home = () => {
+export const Cart = () => {
   return (
     <>
-        <Navbar />
-        <Welcome />
-        <Footer />
+    <Navbar />
+    <ViewCart />
+    <Footer />
     </>
   )
 }
 
-export default Home
+export default Cart

@@ -3,10 +3,12 @@ import { useAuth } from '../context/auth';
 import { useNavigate } from 'react-router-dom';
 // import axios from 'axios';
 // import { ToastContainer ,toast } from 'react-toastify';
+import Navbar from '../components/Navbar';
 
 const LogIn = () => {
-  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const { login ,user} = useAuth();
   const navigate = useNavigate();
 
@@ -15,22 +17,40 @@ const LogIn = () => {
 
 useEffect(()=>{
   if(user)
-  navigate("/");
+  navigate("/product");
 })
 
 
-  const handleLogin = (e) =>{
-    
-    e.preventDefault();
+const handleLogin = (e) => {
+  e.preventDefault();
 
-    console.log("handleLogin called");
-    console.log("username:", userName);
-    console.log("password:", password);
+  const newErrors = {};
 
-    login(userName, password);
-    
-  };
+  // Email validation
+  if (!email.trim()) {
+    newErrors.email = "Email is required";
+  } else {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    if (!emailRegex.test(email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+  }
+
+  // Password validation
+  if (!password.trim()) {
+    newErrors.password = "Enter Your Password ";
+  } 
+
+  setErrors(newErrors);
+
+  // Stop login if validation fails
+  if (Object.keys(newErrors).length > 0) {
+    return;
+  }
+
+  login(email, password);
+};
  
   // const [login, setLogin] = useState(false);
 
@@ -76,36 +96,59 @@ useEffect(()=>{
 
   
   return (
+    <>
+    <Navbar />
     <div className="login-page">
+      
       <form className="login-form"  >
 
-        <div className="mb-3">
-          <label htmlFor="username" className="form-label">
-            Username
-          </label>
-          <input
-          onChange={(e) => setUserName(e.target.value)}
-            type="text"
-            className="form-control"
-            id="username"
-            placeholder="Enter your username"
-            value={userName}
-          />
-        </div>
+     <div className="mb-3">
+  <label htmlFor="email" className="form-label">
+    Email
+  </label>
+
+  <input
+    onChange={(e) => {
+      setEmail(e.target.value);
+      setErrors((prev) => ({ ...prev, email: "" }));
+    }}
+    type="email"
+    className="form-control"
+    id="email"
+    placeholder="Enter your email"
+    value={email}
+  />
+
+  {errors.email && (
+    <small className="validation-error">
+      {errors.email}
+    </small>
+  )}
+</div>
 
         <div className="mb-3">
-          <label htmlFor="exampleInputPassword1" className="form-label">
-            Password
-          </label>
-          <input
-          onChange={(e)=> setPassword(e.target.value)}
-          value={password}
-            type="password"
-            className="form-control"
-            id="exampleInputPassword1"
-            placeholder="Enter your password"
-          />
-        </div>
+  <label htmlFor="password" className="form-label">
+    Password
+  </label>
+
+  <input
+    onChange={(e) => {
+      setPassword(e.target.value);
+      setErrors((prev) => ({ ...prev, password: "" }));
+    }}
+    value={password}
+    type="password"
+    className="form-control"
+    id="password"
+    placeholder="Enter your password"
+  />
+
+  {errors.password && (
+    <small className="validation-error">
+      {errors.password}
+    </small>
+  )}
+</div>
 
         <button type="submit" className="btn btn-primary"  onClick={handleLogin}>
           Login
@@ -113,6 +156,8 @@ useEffect(()=>{
 
       </form>
     </div>
+
+  </>
   )
 }
 
