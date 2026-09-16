@@ -61,12 +61,18 @@ const url = user?.role === 'seller' && showSellerActions
       },
     })
     .then((response) => {
-      console.log("Products:", response.data);
+  console.log("Products:", response.data);
 
-      setProd(response.data.data);
+  if (typeof response.data === "string") {
+    console.error("Backend returned HTML instead of JSON");
+    setProd([]);
+    setTotalPages(1);
+    return;
+  }
 
-      setTotalPages(response.data.pagination.totalPages);
-    })
+  setProd(response.data?.data || []);
+  setTotalPages(response.data?.pagination?.totalPages || 1);
+})
     .catch((error) => {
       console.log(
         "Product error:",
