@@ -103,15 +103,22 @@ const Navbar = () => {
 
         <div className="profile">
 
-          <div className="cart-icon"
-    onClick={() => navigate("/cart")}>
-            <img src="/images/cart.png" alt="Cart" />
-          </div>
-          <div>
-  <button onClick={() => navigate("/signUp")}>
-    SIGN UP
-  </button>
-</div>
+  {user?.role === "user" && (
+    <div
+      className="cart-icon"
+      onClick={() => navigate("/cart")}
+    >
+      <img src="/images/cart.png" alt="Cart" />
+    </div>
+  )}
+
+{!user && (
+  <div>
+    <button onClick={() => navigate("/signUp")}>
+      SIGN UP
+    </button>
+  </div>
+)}
 
           <div>
             <button onClick={!user ? handleLogin : handleLogout}>

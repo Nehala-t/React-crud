@@ -102,6 +102,7 @@ useEffect(() => {
     <AuthContext.Provider
   value={{
     user,
+    setUser,
     login,
     logout,
     authLoading

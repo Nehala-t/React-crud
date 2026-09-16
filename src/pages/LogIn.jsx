@@ -15,10 +15,15 @@ const LogIn = () => {
   console.log(user,'------------->>>>login page');
   // const [user, setUser] = useState([])
 
-useEffect(()=>{
-  if(user)
-  navigate("/product");
-})
+useEffect(() => {
+  if (user) {
+    if (user.role === "seller") {
+      navigate("/sellerDashBoard");
+    } else {
+      navigate("/product");
+    }
+  }
+}, [user, navigate]);
 
 
 const handleLogin = (e) => {

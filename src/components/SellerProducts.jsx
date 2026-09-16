@@ -6,8 +6,6 @@ const SellerProducts = () => {
 
   return (
     <>
-      
-
       <AllProducts />
     </>
   );

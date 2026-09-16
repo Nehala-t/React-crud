@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/auth";
+
 
 const SignUp = () => {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +15,17 @@ const SignUp = () => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "seller") {
+        navigate("/sellerDashBoard");
+      } else {
+        navigate("/product");
+      }
+    }
+  }, [user, navigate]);
 
   const validateField = (name, value) => {
     let error = "";
@@ -132,22 +145,25 @@ if (!response.ok) {
   throw new Error(data.message || "Signup failed");
 }
 
-      toast.success("Account created successfully!");
+     toast.success("Account created successfully!");
 
-      setFirstName("");
-      setLastName("");
-      setEmail("");
-      setPassword("");
-      setRole("");
-      setErrors({});
+const userData = data.data;
 
-      if (role === "user") {
-        navigate("/product");
-      } else if (role === "seller") {
-        navigate("/sellerDashBoard");
-      } else {
-        navigate("/login");
-      }
+// Save user
+localStorage.setItem("loggedInUser", JSON.stringify(userData));
+
+// Save token
+localStorage.setItem("accessToken", data.accessToken);
+
+// Update AuthContext
+setUser(userData);
+
+setFirstName("");
+setLastName("");
+setEmail("");
+setPassword("");
+setRole("");
+setErrors({});
     } catch (error) {
       console.error("Signup error:", error);
       toast.error(error.message || "Something went wrong");
