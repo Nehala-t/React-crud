@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import api from "../api";
+import axios from "axios";
 // import { Link } from "react-router-dom";
 
 
@@ -53,9 +54,12 @@ const url = user?.role === 'seller' && showSellerActions
   
   console.log("API BASE:", api.defaults.baseURL);
 console.log("REQUEST URL:", url);
-api.request({
-  method: "GET",
-  url: `https://productstore-backend-1.onrender.com/api${url}`,
+const finalUrl =
+  `https://productstore-backend-1.onrender.com/api${url}`;
+
+console.log("🔥 FINAL URL:", finalUrl);
+
+axios.get(finalUrl, {
   params: {
     page: currentPage,
     limit: productsPerPage,
