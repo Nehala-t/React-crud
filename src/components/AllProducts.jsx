@@ -57,7 +57,8 @@ console.log("REQUEST URL:", url);
 const finalUrl =
   `https://productstore-backend-1.onrender.com/api${url}`;
 
-console.log("🔥 FINAL URL:", finalUrl);
+console.log("🔥🔥🔥 FINAL URL:", finalUrl);
+console.log("🔥🔥🔥 AXIOS VERSION:", axios.VERSION);
 
 axios.get(finalUrl, {
   params: {
