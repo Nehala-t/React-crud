@@ -41,10 +41,10 @@ const handleAddCart = async (productId) => {
 
   return (
     <div className="product-container" >
-      {curruntProducts.map((products) => (
+      {curruntProducts?.map((products) => (
         <div class="card width: 18rem; products-map" key={products._id}>
           <div className='product-image'>
-            <img src={`${process.env.BACKEND_URL}${products.image}`}
+            <img src={`${process.env.REACT_APP_BACKEND_URL}${products.image}`}
               alt={products.title} class="card-img-top" />
           </div>
           <div className="card-body product-details">
