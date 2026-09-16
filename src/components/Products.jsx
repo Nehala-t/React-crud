@@ -44,8 +44,16 @@ const handleAddCart = async (productId) => {
       {curruntProducts?.map((products) => (
         <div class="card width: 18rem; products-map" key={products._id}>
           <div className='product-image'>
-            <img src={`${process.env.REACT_APP_BACKEND_URL}${products.image}`}
-              alt={products.title} class="card-img-top" />
+            <img src={
+    products.image?.startsWith("http")
+      ? products.image
+      : `${process.env.REACT_APP_BACKEND_URL}${products.image}`
+  }
+              alt={products.title}
+              onError={(e) => {
+      console.log("IMAGE URL:", e.target.src);
+      console.log("IMAGE PATH FROM DB:", products.image);
+    }} class="card-img-top" />
           </div>
           <div className="card-body product-details">
             <h5 class="card-title">{products.title}</h5>
