@@ -49,7 +49,7 @@ useEffect(() => {
 
 const url = user?.role === 'seller' && showSellerActions
   ? "/viewSellerProducts"
-  : "/AllProducts";
+  : "/product";
   api.get(url, {
       params: {
         page: currentPage,
