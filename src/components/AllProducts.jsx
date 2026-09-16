@@ -48,28 +48,26 @@ useEffect(() => {
     return;
   }
 
-const url = user?.role === 'seller' && showSellerActions
-  ? "/viewSellerProducts"
-  : "/AllProducts";
-  
-  console.log("API BASE:", api.defaults.baseURL);
-console.log("REQUEST URL:", url);
-const finalUrl =
-  `https://productstore-backend-1.onrender.com/api${url}`;
+ const endpoint =
+    user.role === "seller" && showSellerActions
+      ? "/viewSellerProducts"
+      : "/AllProducts";
 
-console.log("🔥🔥🔥 FINAL URL:", finalUrl);
-console.log("🔥🔥🔥 AXIOS VERSION:", axios.VERSION);
+  const finalUrl =
+    `https://productstore-backend-1.onrender.com/api${endpoint}`;
 
-axios.get(finalUrl, {
-  params: {
-    page: currentPage,
-    limit: productsPerPage,
-    search: search,
-  },
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-  },
-})
+  console.log("🔥 FINAL URL:", finalUrl);
+
+  axios.get(finalUrl, {
+    params: {
+      page: currentPage,
+      limit: productsPerPage,
+      search: search,
+    },
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
     .then((response) => {
   console.log("Products:", response.data);
 
