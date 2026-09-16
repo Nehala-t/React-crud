@@ -54,7 +54,7 @@ const url = user?.role === 'seller' && showSellerActions
   console.log("API BASE:", api.defaults.baseURL);
 console.log("REQUEST URL:", url);
 
-  api.get(`/api${url}`, {
+  api.get(url, {
       params: {
         page: currentPage,
         limit: productsPerPage,
