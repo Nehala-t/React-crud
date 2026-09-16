@@ -50,6 +50,10 @@ useEffect(() => {
 const url = user?.role === 'seller' && showSellerActions
   ? "/viewSellerProducts"
   : "/AllProducts";
+
+  console.log("API BASE:", api.defaults.baseURL);
+console.log("REQUEST URL:", url);
+
   api.get(url, {
       params: {
         page: currentPage,
@@ -81,17 +85,15 @@ const url = user?.role === 'seller' && showSellerActions
     });
 }, [currentPage, user, showSellerActions,authLoading,navigate,search]
 )
-  // useEffect(() =>{
 
-  // })
 
-   useEffect(() => {
-  console.log("Current user:", user);
+//    useEffect(() => {
+//   console.log("Current user:", user);
 
-  if (user === null) {
-    navigate('/login');
-  }
-}, [user, navigate]);
+//   if (user === null) {
+//     navigate('/login');
+//   }
+// }, [user, navigate]);
 
 
 
