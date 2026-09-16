@@ -5,7 +5,13 @@ import { useAuth } from '../context/auth';
 import { useNavigate } from "react-router-dom";
 
 
-const Products = ({ curruntProducts, deleteProduct, editProduct, viewProduct, showSellerActions, addCart, cartQuantities }) => {
+const Products = ({ curruntProducts = [],
+  deleteProduct,
+  editProduct,
+  viewProduct,
+  showSellerActions,
+  addCart,
+  cartQuantities = {} }) => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -38,7 +44,7 @@ const handleAddCart = async (productId) => {
       {curruntProducts.map((products) => (
         <div class="card width: 18rem; products-map" key={products._id}>
           <div className='product-image'>
-            <img src={`http://localhost:5000${products.image}`}
+            <img src={`${process.env.BACKEND_URL}${products.image}`}
               alt={products.title} class="card-img-top" />
           </div>
           <div className="card-body product-details">
