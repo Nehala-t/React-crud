@@ -53,17 +53,16 @@ const url = user?.role === 'seller' && showSellerActions
   
   console.log("API BASE:", api.defaults.baseURL);
 console.log("REQUEST URL:", url);
-  api.request({
+api.request({
   method: "GET",
-  url: url,
-  baseURL: "https://productstore-backend-1.onrender.com/api",
+  url: `https://productstore-backend-1.onrender.com/api${url}`,
   params: {
     page: currentPage,
     limit: productsPerPage,
     search: search,
   },
   headers: {
-    Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
   },
 })
     .then((response) => {
