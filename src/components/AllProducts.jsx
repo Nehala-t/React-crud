@@ -4,8 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import api from "../api";
-import axios from "axios";
-// import { Link } from "react-router-dom";
+
 
 
 const AllProducts = () => {
@@ -48,26 +47,21 @@ useEffect(() => {
     return;
   }
 
- const endpoint =
-    user.role === "seller" && showSellerActions
-      ? "/viewSellerProducts"
-      : "/AllProducts";
+//  const endpoint =
+//     user.role === "seller" && showSellerActions
+//       ? "/viewSellerProducts"
+//       : "/AllProducts";
 
-  const finalUrl =
-    `https://productstore-backend-1.onrender.com/api${endpoint}`;
-
-  console.log("🔥 FINAL URL:", finalUrl);
-
-  axios.get(finalUrl, {
-    params: {
-      page: currentPage,
-      limit: productsPerPage,
-      search: search,
-    },
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
+api.get("/AllProducts", {
+  params: {
+    page: currentPage,
+    limit: productsPerPage,
+    search: search,
+  },
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+})
     .then((response) => {
   console.log("Products:", response.data);
 
