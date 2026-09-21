@@ -226,7 +226,7 @@ if (!description.trim()) {
   const editProduct = (id, product) => {
   console.log("Sending:", id, product);
 
-  const token = localStorage.getItem("accessToken");
+  
 
   const formData = new FormData();
 
@@ -244,6 +244,7 @@ if (!description.trim()) {
   for (let [key, value] of formData.entries()) {
     console.log(key, value);
   }
+  const token = localStorage.getItem("accessToken");
 
   api.post(`/update/${id}`, formData, {
     headers: {
