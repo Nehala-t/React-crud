@@ -47,12 +47,12 @@ useEffect(() => {
     return;
   }
 
-//  const endpoint =
-//     user.role === "seller" && showSellerActions
-//       ? "/viewSellerProducts"
-//       : "/AllProducts";
+ const endpoint =
+    user.role === "seller" && showSellerActions
+      ? "/viewSellerProducts"
+      : "/AllProducts";
 
-api.get("/AllProducts", {
+api.get(endpoint, {
   params: {
     page: currentPage,
     limit: productsPerPage,
