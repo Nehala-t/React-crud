@@ -245,7 +245,7 @@ if (!description.trim()) {
     console.log(key, value);
   }
 
-  api.post(`/update${id}`, formData, {
+  api.post(`/update/${id}`, formData, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
